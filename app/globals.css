@@ -1,26 +1,146 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-foreground-strong: var(--foreground-strong);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-border-gold: var(--border-gold);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-light: var(--brand-light);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-footer-bg: var(--footer-bg);
+
+  --font-sans: var(--active-font-sans);
+  --font-display: var(--active-font-display);
+  --font-heading: var(--active-font-display);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.4);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.75rem;
+
+  /* Rekaz Light Theme — Extracted from Figma 266:7458 */
+  --background: #fcfaf5;
+  --foreground: #24231f;
+  --foreground-strong: #35342e;
+  --card: #ffffff;
+  --card-foreground: #24231f;
+  --popover: #ffffff;
+  --popover-foreground: #24231f;
+
+  --primary: #efbb54;
+  --primary-foreground: #24231f;
+  --brand-dark: #8a641b;
+  --brand-light: #f6dfab;
+
+  --secondary: #f2efe7;
+  --secondary-foreground: #24231f;
+  --surface-subtle: #f2efe7;
+  --muted: #ebe6da;
+  --muted-foreground: #6d6d6d;
+  --accent: #f6dfab;
+  --accent-foreground: #24231f;
+
+  --border: #e5dfd1;
+  --border-gold: #f6dfab;
+  --input: #e5dfd1;
+  --ring: #efbb54;
+
+  --footer-bg: #fcfaf5;
+
+  --success: #1f8a57;
+  --destructive: #c62a2f;
+  --warning: #d9822b;
+
+  --active-font-display: var(--font-arabic-serif), serif;
+  --active-font-sans: var(--font-arabic-sans), system-ui, sans-serif;
+}
+
+.dark {
+  /* Rekaz Dark Theme — Extracted from Figma 266:7586 */
+  --background: #0b0b0b;
+  --foreground: #f5f5f5;
+  --foreground-strong: #ffffff;
+  --card: #121310;
+  --card-foreground: #f5f5f5;
+  --popover: #141414;
+  --popover-foreground: #f5f5f5;
+
+  --primary: #efbb54;
+  --primary-foreground: #121310;
+  --brand-dark: #efbb54;
+  --brand-light: #a88727;
+
+  --secondary: #141414;
+  --secondary-foreground: #f5f5f5;
+  --surface-subtle: #141414;
+  --muted: #1c1c1c;
+  --muted-foreground: #cccccc;
+  --accent: #1c1c1c;
+  --accent-foreground: #f5f5f5;
+
+  --border: #2a2a2a;
+  --border-gold: rgba(239, 187, 84, 0.35);
+  --input: #2a2a2a;
+  --ring: #efbb54;
+
+  --footer-bg: #000000;
+
+  --success: #4cc38a;
+  --destructive: #f2555a;
+  --warning: #f0a24b;
+}
+
+html[lang="en"] {
+  --active-font-display: var(--font-english-serif), Georgia, serif;
+  --active-font-sans: var(--font-english-sans), system-ui, sans-serif;
+}
+
+html[lang="ar"] {
+  --active-font-display: var(--font-arabic-serif), Georgia, serif;
+  --active-font-sans: var(--font-arabic-sans), system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--active-font-sans);
+    overflow-x: clip;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    overflow-x: clip;
+  }
 }
