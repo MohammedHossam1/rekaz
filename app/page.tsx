@@ -40,12 +40,12 @@ export default async function HomePage() {
         {/* Light Hero Background — vivid 90% clear image with minimal Figma edge fade */}
         <div className="pointer-events-none absolute inset-0 -z-10 dark:hidden">
           <Image
-            src="/images/home/hero-light.png"
+            src="/images/home/hero-light2.png"
             alt=""
             fill
             priority
             sizes="100vw"
-            className="object-cover object-left rtl:scale-x-[-1] ltr:object-right"
+            className="object-cover object-left  ltr:object-right"
           />
           <div
             className="absolute inset-0"
@@ -225,10 +225,10 @@ export default async function HomePage() {
             className="object-cover object-top "
           />
         </div>
-{/*  */}
+        {/*  */}
         <Container>
           <Reveal className="mb-10 flex flex-col items-end gap-3 text-end">
-            <SectionBadge isAnounceIcon   label={t.home.servicesBadge} className="flex-row-reverse" />
+            <SectionBadge isAnounceIcon label={t.home.servicesBadge} className="flex-row-reverse" />
             <h2 className="max-w-[760px] font-display text-2xl font-bold leading-[1.35] text-foreground sm:text-3xl md:text-4xl lg:text-[52px] lg:leading-[72px]">
               {t.home.servicesTitlePart1}
               <br />
@@ -361,8 +361,8 @@ export default async function HomePage() {
                 sliceIdx === 0
                   ? "lg:mt-0"
                   : sliceIdx === 1
-                  ? "lg:mt-14"
-                  : "lg:mt-2";
+                    ? "lg:mt-14"
+                    : "lg:mt-2";
 
               return (
                 <StaggerItem key={item.number} className={staggerClass}>

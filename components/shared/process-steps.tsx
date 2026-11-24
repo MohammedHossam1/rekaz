@@ -33,16 +33,16 @@ export function ProcessSteps({ t }: ProcessStepsProps) {
                 {t.title}
               </h2>
             </Reveal>
-            <FloatAmbient yRange={12} duration={7} className="relative mt-6 hidden h-[300px] w-[320px] lg:block">
+            <div className="relative mt-6 hidden w-[90%] aspect-427/371  lg:block">
               <Image
-                src="/images/shared/swirl-process.png"
+                src="/images/shared/swirl2.png"
                 alt=""
                 fill
                 sizes="320px"
                 className="object-contain opacity-80"
                 aria-hidden="true"
               />
-            </FloatAmbient>
+            </div>
           </div>
 
           {/* End column: 4 Figma Award Blocks with staggered reveal + pure CSS hover */}
