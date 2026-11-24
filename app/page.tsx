@@ -225,7 +225,7 @@ export default async function HomePage() {
             className="object-cover object-top "
           />
         </div>
-
+{/*  */}
         <Container>
           <Reveal className="mb-10 flex flex-col items-end gap-3 text-end">
             <SectionBadge isAnounceIcon   label={t.home.servicesBadge} className="flex-row-reverse" />
