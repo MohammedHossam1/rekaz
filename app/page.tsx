@@ -215,7 +215,7 @@ export default async function HomePage() {
         {/* Subtle full-width curved wave shape from Figma (imgShapeStyle15Png) */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 -top-24 -z-10 h-[340px] w-full overflow-hidden opacity-7 mix-blend-multiply dark:opacity-10 dark:mix-blend-screen md:h-[420px]"
+          className="pointer-events-none absolute inset-x-0 -top-5 -z-10 h-85 w-full overflow-hidden opacity-7 mix-blend-multiply dark:opacity-10 dark:mix-blend-screen md:h-105"
         >
           <Image
             src="/images/home/about-swirl.png"
