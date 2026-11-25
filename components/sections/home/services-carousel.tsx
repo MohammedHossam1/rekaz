@@ -71,8 +71,8 @@ export function ServicesCarousel({
                   </div>
                 </div>
 
-                <div className="mt-4 flex justify-end border-t border-card pt-3.5 dark:border-border/50 sm:mt-5 sm:pt-4">
-                  <ArrowDir className="size-5 text-foreground transition-transform group-hover:text-brand-dark" />
+                <div className="mt-4 flex justify-start border-t border-card pt-3.5 dark:border-border/50 sm:mt-5 sm:pt-4">
+                  <ArrowDir className="size-5 text-foreground transition-transform group-hover:text-brand-dark rtl:rotate-180" />
                 </div>
               </Link>
             </CarouselItem>
@@ -80,19 +80,19 @@ export function ServicesCarousel({
         </CarouselContent>
 
         {/* Bottom CTA bar inside container */}
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-2 pt-2 text-xs sm:mt-7 sm:gap-3 sm:text-base">
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5 pt-2 text-sm sm:mt-7 sm:gap-3.5 sm:text-base">
           <Link
-            href="/contact"
-            className="inline-flex h-[28px] items-center rounded-[20px] bg-primary px-3 text-xs font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:h-[29px] sm:px-3.5 sm:text-sm"
+            href="/booking"
+            className="font-display font-bold text-brand-dark underline underline-offset-4 transition-opacity hover:opacity-80"
           >
-            {contactLabel}
+            {t.servicesAllCta}
           </Link>
           <span className="text-foreground">{t.servicesNeedHelp}</span>
           <Link
-            href="/booking"
-            className="font-display font-bold text-brand-dark underline underline-offset-4 hover:opacity-80"
+            href="/contact"
+            className="inline-flex h-8 items-center rounded-full bg-primary px-4 text-xs font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:h-9 sm:px-5 sm:text-sm"
           >
-            {t.servicesAllCta}
+            {contactLabel}
           </Link>
         </div>
 

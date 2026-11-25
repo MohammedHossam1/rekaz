@@ -26,48 +26,56 @@ export default async function ContactPage() {
       />
 
       {/* Contact Info + Form */}
-      <section className="py-10 md:py-16">
+      <section className="py-8 sm:py-12 md:py-16">
         <Container>
-          <div className="grid items-start gap-8 lg:grid-cols-12">
+          <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-6">
             {/* Contact Info Column */}
-            <div className="space-y-6 lg:col-span-5">
-              <div className="space-y-3">
-                <p className="text-sm font-semibold text-brand-dark">{t.contact.badge}</p>
-                <h2 className="font-display text-3xl font-bold leading-snug text-foreground sm:text-4xl">
+            <div className="space-y-5 sm:space-y-7 lg:col-span-5 lg:space-y-8">
+              <div className="space-y-2.5 sm:space-y-4 lg:space-y-5">
+                <p className="font-display text-lg font-bold text-brand-dark sm:text-xl lg:text-[24px]">
+                  {t.contact.badge}
+                </p>
+                <h2 className="font-display text-2xl font-bold leading-[1.25] text-foreground sm:text-4xl lg:text-[46px] lg:leading-[1.15]">
                   {t.contact.heading}
                 </h2>
               </div>
 
-              <div className="space-y-4 pt-2">
+              <div className="space-y-3 sm:space-y-4 lg:space-y-5">
                 <a
                   href={`mailto:${t.contact.email}`}
-                  className="flex items-center gap-4 rounded-2xl border border-border/60 bg-surface-subtle p-4 transition-colors hover:border-border-gold"
+                  className="flex items-center gap-3 rounded-2xl bg-surface-subtle p-3.5 transition-colors hover:ring-1 hover:ring-primary/40 sm:gap-4 sm:rounded-[24px] sm:p-4"
                 >
-                  <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                    <Mail className="size-5" />
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-[8px] bg-primary text-primary-foreground sm:size-12">
+                    <Mail className="size-5 sm:size-6" />
                   </span>
-                  <span dir="ltr" className="text-sm font-medium text-foreground sm:text-base">
+                  <span
+                    dir="ltr"
+                    className="min-w-0 break-all text-sm font-normal text-foreground-strong sm:text-base lg:text-[20px]"
+                  >
                     {t.contact.email}
                   </span>
                 </a>
 
-                <div className="flex items-center gap-4 rounded-2xl border border-border/60 bg-surface-subtle p-4">
-                  <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                    <MapPin className="size-5" />
+                <div className="flex items-center gap-3 rounded-2xl bg-surface-subtle p-3.5 sm:gap-4 sm:rounded-[24px] sm:p-4">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-[8px] bg-primary text-primary-foreground sm:size-12">
+                    <MapPin className="size-5 sm:size-6" />
                   </span>
-                  <span className="text-sm font-medium text-foreground sm:text-base">
+                  <span className="min-w-0 break-words text-sm font-normal text-foreground-strong sm:text-base lg:text-[20px]">
                     {t.contact.address}
                   </span>
                 </div>
 
                 <a
                   href={`tel:${t.contact.phone}`}
-                  className="flex items-center gap-4 rounded-2xl border border-border/60 bg-surface-subtle p-4 transition-colors hover:border-border-gold"
+                  className="flex items-center gap-3 rounded-2xl bg-surface-subtle p-3.5 transition-colors hover:ring-1 hover:ring-primary/40 sm:gap-4 sm:rounded-[24px] sm:p-4"
                 >
-                  <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                    <Phone className="size-5" />
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-[8px] bg-primary text-primary-foreground sm:size-12">
+                    <Phone className="size-5 sm:size-6" />
                   </span>
-                  <span dir="ltr" className="text-sm font-medium text-foreground sm:text-base">
+                  <span
+                    dir="ltr"
+                    className="min-w-0 text-sm font-normal text-foreground-strong sm:text-base lg:text-[20px]"
+                  >
                     {t.contact.phone}
                   </span>
                 </a>
@@ -75,14 +83,14 @@ export default async function ContactPage() {
             </div>
 
             {/* Form Column */}
-            <div className="lg:col-span-7">
+            <div className="min-w-0 lg:col-span-7">
               <ContactForm t={t.contact.form} validation={t.validation} />
             </div>
           </div>
 
           {/* Location Map Showcase */}
-          <div className="mt-12 overflow-hidden rounded-[26px] border border-border/60 shadow-xs">
-            <div className="relative aspect-[21/7] min-h-[240px] w-full">
+          <div className="mt-10 overflow-hidden rounded-2xl sm:mt-14 sm:rounded-[24px] lg:mt-16">
+            <div className="relative h-[220px] w-full sm:h-[320px] lg:h-[408px]">
               <Image
                 src="/images/contact/map.png"
                 alt={t.contact.address}

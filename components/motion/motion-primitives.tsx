@@ -70,29 +70,18 @@ export function Reveal({
 }
 
 /**
- * Hero immediate entrance (animates on mount without waiting for scroll).
+ * Hero wrapper (renders immediately on route change with no entrance delay/motion).
  */
 export function HeroReveal({
   children,
   className,
-  delay = 0,
-  y = 24,
 }: {
   children: React.ReactNode;
   className?: string;
   delay?: number;
   y?: number;
 }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.75, delay, ease: LUXURY_EASE }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={className}>{children}</div>;
 }
 
 /**

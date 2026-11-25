@@ -15,9 +15,9 @@ interface FaqSectionProps {
 
 export function FaqSection({ t }: FaqSectionProps) {
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-8 md:py-14">
       <Container>
-        <div className="grid items-start gap-12 lg:grid-cols-12">
+        <div className="grid items-end gap-8 lg:grid-cols-12 lg:gap-10">
           {/* Intro + Wireframe Globe */}
           <Reveal className="flex flex-col items-center text-center lg:col-span-5">
             <h2 className="font-display text-3xl font-bold leading-snug text-foreground sm:text-4xl md:text-[42px]">

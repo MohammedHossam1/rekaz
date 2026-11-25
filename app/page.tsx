@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { SectionBadge } from "@/components/shared/section-badge";
-import { DotsBadge } from "@/components/shared/dots-badge";
+import { CtaLinkButton } from "@/components/shared/cta-link-button";
 import { ServicesCarousel } from "@/components/sections/home/services-carousel";
 import { ProcessSteps } from "@/components/shared/process-steps";
 import { FilterableWork } from "@/components/shared/filterable-work";
@@ -18,9 +18,7 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/components/motion/motion-primitives";
-import { buttonVariants } from "@/components/ui/button";
 import { getI18n } from "@/lib/i18n";
-import { cn } from "@/lib/utils";
 
 const MEDIA_IMAGES = [
   "/images/home/media-1.png",
@@ -36,7 +34,7 @@ export default async function HomePage() {
   return (
     <>
       {/* 1. HERO SECTION (Preserves exact 1440:662 aspect ratio & crisp 90% image clarity) */}
-      <section className="relative isolate -mt-[104px] flex min-h-[540px] items-center overflow-hidden pt-[130px] pb-14 sm:min-h-[600px] lg:aspect-[1440/662] lg:min-h-[640px] lg:pt-[150px] lg:pb-16">
+      <section className="relative isolate -mt-26 flex min-h-135 items-center overflow-hidden pt-32.5 pb-14 sm:min-h-150 lg:aspect-1440/662 lg:min-h-160 lg:pt-37.5 lg:pb-16">
         {/* Light Hero Background — vivid 90% clear image with minimal Figma edge fade */}
         <div className="pointer-events-none absolute inset-0 -z-10 dark:hidden">
           <Image
@@ -45,7 +43,7 @@ export default async function HomePage() {
             fill
             priority
             sizes="100vw"
-            className="object-cover object-left  ltr:object-right"
+            className="object-cover object-left ltr:scale-x-[-1] ltr:object-right"
           />
           <div
             className="absolute inset-0"
@@ -78,13 +76,13 @@ export default async function HomePage() {
                   : "linear-gradient(91deg, rgba(11,11,11,0.88) 12%, rgba(11,11,11,0.28) 46%, rgba(11,11,11,0) 65%)",
             }}
           />
-          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-background to-transparent" />
         </div>
 
         <Container>
-          <div className="max-w-[650px] space-y-5 sm:space-y-6">
+          <div className="max-w-162.5 space-y-5 sm:space-y-6">
             <HeroReveal delay={0.05}>
-              <h1 className="font-display text-[32px] font-bold leading-[1.25] text-foreground sm:text-4xl md:text-5xl lg:text-[62px] xl:text-[70px] xl:leading-[86px]">
+              <h1 className="font-display text-[32px] font-bold leading-tight text-foreground sm:text-4xl md:text-5xl lg:text-[62px] xl:text-[70px] xl:leading-[86px]">
                 {t.home.heroTitlePrefix}{" "}
                 <span className="text-brand-dark">{t.home.heroTitleHighlight}</span>{" "}
                 {t.home.heroTitleSuffix}
@@ -97,26 +95,16 @@ export default async function HomePage() {
             </HeroReveal>
             <HeroReveal delay={0.3} y={18}>
               <div className="flex flex-wrap items-center gap-3 pt-1 sm:gap-4 sm:pt-2">
-                <Link
+                <CtaLinkButton
                   href="/booking"
-                  className={cn(
-                    buttonVariants({ variant: "gold", size: "pill" }),
-                    "group h-12 ps-5 pe-1.5 text-sm sm:h-[54px] sm:ps-6 sm:pe-[7px] sm:text-base lg:text-lg"
-                  )}
-                >
-                  <span>{t.home.heroPrimaryCta}</span>
-                  <DotsBadge variant="light" className="size-9 sm:size-10" />
-                </Link>
-                <Link
+                  label={t.home.heroPrimaryCta}
+                  variant="gold"
+                />
+                <CtaLinkButton
                   href="/services"
-                  className={cn(
-                    buttonVariants({ variant: "goldOutline", size: "pill" }),
-                    "group h-12 border-primary bg-background/40 ps-5 pe-1.5 text-sm backdrop-blur-[2px] sm:h-[54px] sm:ps-6 sm:pe-[7px] sm:text-base lg:text-lg"
-                  )}
-                >
-                  <span>{t.home.heroSecondaryCta}</span>
-                  <DotsBadge variant="gold" className="size-9 sm:size-10" />
-                </Link>
+                  label={t.home.heroSecondaryCta}
+                  variant="goldOutline"
+                />
               </div>
             </HeroReveal>
           </div>
@@ -124,7 +112,7 @@ export default async function HomePage() {
       </section>
 
       {/* 2. ABOUT PREVIEW SECTION (Figma 55:574 with curly arrow SVG + torus swirl + 10+) */}
-      <section className="py-5 md:py-22">
+      <section className="py-5 md:py-18">
         <Container>
           <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-10">
             {/* Start Column: Badge & Golden Ring Swirl (compact side-by-side on mobile, stacked on lg+) */}
@@ -135,15 +123,13 @@ export default async function HomePage() {
               <FloatAmbient
                 yRange={10}
                 duration={6.5}
-                rotateRange={3}
-                className="relative size-24 shrink-0 sm:size-32 lg:mt-2 lg:h-[260px] lg:w-[260px]"
-              >
+                className="relative size-24 pointer-events-none shrink-0 sm:size-32 lg:mt-2 lg:h-65 lg:w-65" >
                 <Image
                   src="/images/shared/swirl-ring.png"
                   alt=""
                   fill
                   sizes="(max-width: 640px) 96px, (max-width: 1024px) 128px, 260px"
-                  className="object-contain opacity-85"
+                  className="object-contain opacity-85 rotate-45"
                   aria-hidden="true"
                 />
               </FloatAmbient>
@@ -152,57 +138,56 @@ export default async function HomePage() {
             {/* End Column: Headline + Giant 10+ + Curly Arrow + Description & Pill CTA */}
             <div className="space-y-6 lg:col-span-9 lg:space-y-8">
               <Reveal>
-                <h2 className="max-w-[765px] font-display text-2xl font-bold leading-[1.35] text-foreground sm:text-3xl md:text-4xl lg:text-[52px] lg:leading-[72px]">
+                <h2 className="max-w-191.25 font-display text-2xl font-bold leading-[1.35] text-foreground sm:text-3xl md:text-4xl lg:text-[52px] lg:leading-18">
                   {t.home.aboutTitle}
                 </h2>
               </Reveal>
 
               <div className="relative grid items-end gap-8 lg:grid-cols-12">
-                <Reveal delay={0.1} className="relative lg:col-span-5">
+                <Reveal delay={0.1} className="relative lg:col-span-5 ">
                   <div
                     dir="ltr"
-                    className="inline-flex items-start font-sans font-semibold leading-none text-brand-dark"
+                    className="inline-flex justify-between items-start font-sans font-semibold leading-none text-brand-dark  w-full"
                   >
-                    <AnimatedCounter
-                      value={10}
-                      className="text-[96px] leading-[0.95] sm:text-[130px] lg:text-[156px]"
-                    />
-                    <span className="mt-2 text-[52px] font-normal leading-none sm:text-[72px]">
-                      +
-                    </span>
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none hidden lg:block -translate-y-5"
+                    >
+                      <Image
+                        src="/images/home/about-arrow.svg"
+                        alt=""
+                        width={68}
+                        height={68}
+                        className="mb-2 -scale-y-100 opacity-85 dark:invert"
+                      />
+                    </div>
+                    <div className=" ms-auto ">
+                      <AnimatedCounter
+                        value={10}
+                        className="text-[96px] leading-[0.95] sm:text-[130px] lg:text-[156px]"
+                      />
+                      <span className="mt-2 text-[52px] font-normal leading-none sm:text-[72px]">
+                        +
+                      </span>
+                    </div>
                   </div>
                   <p className="mt-3 font-display text-base font-bold text-foreground-strong sm:text-lg lg:text-[20px]">
                     {t.home.aboutStatLabel}
                   </p>
+
                 </Reveal>
 
                 {/* Decorative curly arrow SVG from Figma 55:718 */}
                 <Reveal delay={0.2} className="relative space-y-5 lg:col-span-7">
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none hidden lg:block"
-                  >
-                    <Image
-                      src="/images/home/about-arrow.svg"
-                      alt=""
-                      width={68}
-                      height={68}
-                      className="mb-2 -scale-y-100 opacity-85 dark:invert"
-                    />
-                  </div>
-                  <p className="max-w-[483px] text-base leading-[1.6] text-muted-foreground sm:text-lg lg:text-[22px] lg:leading-[1.45]">
+
+                  <p className="max-w-120.75 text-base leading-[1.6] text-muted-foreground sm:text-lg lg:text-[22px] lg:leading-[1.45]">
                     {t.home.aboutDescription}
                   </p>
-                  <Link
+                  <CtaLinkButton
                     href="/about"
-                    className={cn(
-                      buttonVariants({ variant: "gold", size: "pill" }),
-                      "group h-12 ps-5 pe-1.5 text-sm sm:h-[54px] sm:ps-6 sm:pe-[7px] sm:text-base lg:text-lg"
-                    )}
-                  >
-                    <span>{t.home.aboutCta}</span>
-                    <DotsBadge variant="light" className="size-9 sm:size-10" />
-                  </Link>
+                    label={t.home.aboutCta}
+                    variant="gold"
+                  />
                 </Reveal>
               </div>
             </div>
@@ -229,7 +214,7 @@ export default async function HomePage() {
         <Container>
           <Reveal className="mb-10 flex flex-col items-end gap-3 text-end">
             <SectionBadge isAnounceIcon label={t.home.servicesBadge} className="flex-row-reverse" />
-            <h2 className="max-w-[760px] font-display text-2xl font-bold leading-[1.35] text-foreground sm:text-3xl md:text-4xl lg:text-[52px] lg:leading-[72px]">
+            <h2 className="max-w-190 font-display text-2xl font-bold leading-[1.35] text-foreground sm:text-3xl md:text-4xl lg:text-[52px] lg:leading-18">
               {t.home.servicesTitlePart1}
               <br />
               <span className="inline-flex align-middle">
@@ -238,7 +223,7 @@ export default async function HomePage() {
                   alt=""
                   width={193}
                   height={62}
-                  className="mx-2 inline-block h-9 w-24 rounded-full object-cover sm:h-12 sm:w-36 lg:h-[58px] lg:w-[180px]"
+                  className="mx-2 inline-block h-9 w-24 rounded-full object-cover sm:h-12 sm:w-36 lg:h-14.5 lg:w-45"
                   aria-hidden="true"
                 />
               </span>{" "}
@@ -260,7 +245,7 @@ export default async function HomePage() {
       <ProcessSteps t={t.process} />
 
       {/* 5. CREATIVE PRODUCTION ("الإنتاج الإبداعي" — Figma 225:5401 staggered arc layout) */}
-      <section className="py-5 md:py-22">
+      <section className="py-5 md:py-18">
         <Container>
           {/* Top Row: Heading, Compact Studio Visual (right after heading on mobile, side-by-side on lg+), Item 01 */}
           <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-10">
@@ -276,7 +261,7 @@ export default async function HomePage() {
 
               {/* Compact Studio Visual for mobile/tablet right below the heading */}
               <div className="lg:hidden">
-                <div className="relative mx-auto aspect-[638/392] w-full max-w-[300px] sm:max-w-[420px]">
+                <div className="relative mx-auto aspect-638/392 w-full max-w-75 sm:max-w-105">
                   <Image
                     src="/images/home/media-frame-outline.svg"
                     alt=""
@@ -315,7 +300,7 @@ export default async function HomePage() {
                       {t.home.mediaItems[0].description}
                     </p>
                     <span className="mt-1 inline-flex size-8 items-center justify-center rounded-full border border-border-gold text-brand-dark transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                      <ArrowDir className="size-3.5" />
+                      <ArrowDir className="size-3.5 rtl:rotate-180" />
                     </span>
                   </div>
                   <div className="relative h-[108px] w-[172px] shrink-0 sm:h-[119px] sm:w-[192px]">
@@ -384,7 +369,7 @@ export default async function HomePage() {
                         {item.description}
                       </p>
                       <span className="mt-1 inline-flex size-8 items-center justify-center rounded-full border border-border-gold text-brand-dark transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                        <ArrowDir className="size-3.5" />
+                        <ArrowDir className="size-3.5 rtl:rotate-180" />
                       </span>
                     </div>
 
@@ -406,7 +391,7 @@ export default async function HomePage() {
       </section>
 
       {/* 6. FEATURED WORK ("أفكار تحولت إلى إنجازات" — Figma 116:57) */}
-      <section className="py-5 md:py-22">
+      <section className="py-5 md:py-18">
         <Container>
           <div className="mb-10 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
             <div className="space-y-3">
@@ -430,7 +415,7 @@ export default async function HomePage() {
       </section>
 
       {/* 7. PACKAGES SECTION ("الباقات" — Figma 146:1186) */}
-      <section className="py-5 md:py-22">
+      <section className="py-5 md:py-18">
         <Container>
           <div className="mb-10 flex flex-col items-start">
             <SectionBadge label={t.home.packagesBadge} />

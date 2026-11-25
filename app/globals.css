@@ -135,12 +135,20 @@ html[lang="ar"] {
     @apply border-border outline-ring/50;
   }
   html {
-    scroll-behavior: smooth;
     font-family: var(--active-font-sans);
     overflow-x: clip;
   }
   body {
     @apply bg-background text-foreground antialiased;
     overflow-x: clip;
+  }
+}
+
+@keyframes spin-x {
+  from {
+    transform: perspective(800px) rotateX(0deg);
+  }
+  to {
+    transform: perspective(800px) rotateX(360deg);
   }
 }

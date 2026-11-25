@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   Globe,
@@ -12,14 +11,12 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { PageHero } from "@/components/shared/page-hero";
-import { DotsBadge } from "@/components/shared/dots-badge";
+import { CtaLinkButton } from "@/components/shared/cta-link-button";
 import { ProcessSteps } from "@/components/shared/process-steps";
 import { FaqSection } from "@/components/shared/faq-section";
 import { ProjectCtaBanner } from "@/components/shared/project-cta-banner";
-import { buttonVariants } from "@/components/ui/button";
 import { SERVICES } from "@/constants/site-data";
 import { getI18n } from "@/lib/i18n";
-import { cn } from "@/lib/utils";
 
 const FEATURE_ICONS = [
   Globe,
@@ -90,16 +87,11 @@ export default async function ServiceDetailPage({
                 {service.introBody2[locale]}
               </p>
               <div className="pt-2">
-                <Link
+                <CtaLinkButton
                   href="/booking"
-                  className={cn(
-                    buttonVariants({ variant: "gold", size: "pill" }),
-                    "group h-[54px] ps-6 pe-[7px]"
-                  )}
-                >
-                  <span>{t.services.bookServiceCta}</span>
-                  <DotsBadge variant="light" />
-                </Link>
+                  label={t.services.bookServiceCta}
+                  variant="gold"
+                />
               </div>
             </div>
 

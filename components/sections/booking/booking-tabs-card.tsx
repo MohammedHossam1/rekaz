@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2 } from "lucide-react";
@@ -8,13 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { FormDropdown } from "@/components/shared/form-dropdown";
 import {
   createServiceBookingSchema,
   createStudioBookingSchema,
@@ -84,9 +79,12 @@ export function BookingTabsCard({
   };
 
   return (
-    <div className="mx-auto max-w-[820px]">
-      {/* Exact Figma folder-style connected tabs */}
-      <div className="relative z-10 -mb-px grid grid-cols-2" role="tablist">
+    <div className="mx-auto max-w-[818px]">
+      {/* Exact Figma folder-style connected tabs with smooth spring sliding indicator */}
+      <div
+        className="relative z-10 mx-auto grid w-[90%] max-w-[711px] grid-cols-2"
+        role="tablist"
+      >
         <button
           type="button"
           role="tab"
@@ -96,14 +94,37 @@ export function BookingTabsCard({
             setSubmittedTab(null);
           }}
           className={cn(
-            "cursor-pointer rounded-t-[24px] py-4 font-display text-lg font-bold transition-all sm:py-5 sm:text-xl",
+            "relative flex h-[60px] cursor-pointer items-center justify-center rounded-t-[24px] font-display text-lg font-bold outline-none transition-colors focus-visible:ring-2 focus-visible:ring-primary/40 sm:h-[70px] sm:text-[20px]",
             activeTab === "service"
-              ? "border border-b-surface-subtle border-border-gold/70 bg-surface-subtle text-brand-dark"
-              : "text-foreground/75 hover:text-foreground"
+              ? "text-brand-dark"
+              : "text-foreground/80 hover:text-brand-dark"
           )}
         >
-          {t.tabService}
+          {activeTab === "service" && (
+            <motion.span
+              layoutId="booking-active-tab"
+              transition={{ type: "spring", stiffness: 420, damping: 34 }}
+              className="pointer-events-none absolute inset-0 rounded-t-[24px] bg-surface-subtle after:absolute after:inset-x-6 after:bottom-0 after:h-px after:bg-primary/25"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-6 bottom-0 size-6 fill-surface-subtle"
+              >
+                <path d="M0 0A24 24 0 0 0 24 24H0V0Z" />
+              </svg>
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                className="pointer-events-none absolute -left-6 bottom-0 size-6 -scale-x-100 fill-surface-subtle"
+              >
+                <path d="M0 0A24 24 0 0 0 24 24H0V0Z" />
+              </svg>
+            </motion.span>
+          )}
+          <span className="relative z-10">{t.tabService}</span>
         </button>
+
         <button
           type="button"
           role="tab"
@@ -113,24 +134,53 @@ export function BookingTabsCard({
             setSubmittedTab(null);
           }}
           className={cn(
-            "cursor-pointer rounded-t-[24px] py-4 font-display text-lg font-bold transition-all sm:py-5 sm:text-xl",
+            "relative flex h-[60px] cursor-pointer items-center justify-center rounded-t-[24px] font-display text-lg font-bold outline-none transition-colors focus-visible:ring-2 focus-visible:ring-primary/40 sm:h-[70px] sm:text-[20px]",
             activeTab === "studio"
-              ? "border border-b-surface-subtle border-border-gold/70 bg-surface-subtle text-brand-dark"
-              : "text-foreground/75 hover:text-foreground"
+              ? "text-brand-dark"
+              : "text-foreground/80 hover:text-brand-dark"
           )}
         >
-          {t.tabStudio}
+          {activeTab === "studio" && (
+            <motion.span
+              layoutId="booking-active-tab"
+              transition={{ type: "spring", stiffness: 420, damping: 34 }}
+              className="pointer-events-none absolute inset-0 rounded-t-[24px] bg-surface-subtle after:absolute after:inset-x-6 after:bottom-0 after:h-px after:bg-primary/25"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-6 bottom-0 size-6 fill-surface-subtle"
+              >
+                <path d="M0 0A24 24 0 0 0 24 24H0V0Z" />
+              </svg>
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                className="pointer-events-none absolute -left-6 bottom-0 size-6 -scale-x-100 fill-surface-subtle"
+              >
+                <path d="M0 0A24 24 0 0 0 24 24H0V0Z" />
+              </svg>
+            </motion.span>
+          )}
+          <span className="relative z-10">{t.tabStudio}</span>
         </button>
       </div>
 
       {/* Form Panel */}
-      <div
-        className={cn(
-          "rounded-b-[28px] border border-border-gold/70 bg-surface-subtle p-6 sm:p-8 md:p-10",
-          activeTab === "service" ? "rounded-te-[28px]" : "rounded-ts-[28px]"
-        )}
+      <motion.div
+        layout
+        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+        className="relative overflow-hidden rounded-[24px] bg-surface-subtle px-5 py-6 sm:px-6 sm:py-7"
       >
-        {submittedTab ? (
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={submittedTab ? `submitted-${submittedTab}` : activeTab}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {submittedTab ? (
           <div className="flex min-h-[340px] flex-col items-center justify-center text-center">
             <span className="flex size-16 items-center justify-center rounded-full bg-success/15 text-success">
               <CheckCircle2 className="size-9" />
@@ -149,7 +199,7 @@ export function BookingTabsCard({
               type="button"
               variant="gold"
               size="xl"
-              className="mt-6"
+              className="mt-6 h-14 rounded-full px-10 font-display text-lg font-bold"
               onClick={() => setSubmittedTab(null)}
             >
               {t.serviceForm.submit}
@@ -159,16 +209,18 @@ export function BookingTabsCard({
           <form
             onSubmit={serviceForm.handleSubmit(handleServiceSubmit)}
             noValidate
-            className="space-y-5"
+            className="space-y-6"
           >
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="svc-name">{t.serviceForm.name}</Label>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-2.5">
+                <Label htmlFor="svc-name" className="font-display text-sm font-bold text-foreground">
+                  {t.serviceForm.name}
+                </Label>
                 <Input
                   id="svc-name"
                   placeholder={t.serviceForm.namePlaceholder}
                   aria-invalid={!!serviceForm.formState.errors.name}
-                  className="h-12 rounded-xl border-border/70 bg-card px-4"
+                  className="h-12 rounded-[12px] border-0 bg-card px-4 text-base text-foreground shadow-none placeholder:text-foreground/45 focus-visible:ring-2 focus-visible:ring-primary/50"
                   {...serviceForm.register("name")}
                 />
                 {serviceForm.formState.errors.name && (
@@ -178,15 +230,17 @@ export function BookingTabsCard({
                 )}
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="svc-phone">{t.serviceForm.phone}</Label>
+              <div className="space-y-2.5">
+                <Label htmlFor="svc-phone" className="font-display text-sm font-bold text-foreground">
+                  {t.serviceForm.phone}
+                </Label>
                 <Input
                   id="svc-phone"
                   type="tel"
                   dir="ltr"
                   placeholder={t.serviceForm.phonePlaceholder}
                   aria-invalid={!!serviceForm.formState.errors.phone}
-                  className="h-12 rounded-xl border-border/70 bg-card px-4"
+                  className="h-12 rounded-[12px] border-0 bg-card px-4 text-base text-foreground shadow-none placeholder:text-foreground/45 focus-visible:ring-2 focus-visible:ring-primary/50 rtl:text-right"
                   {...serviceForm.register("phone")}
                 />
                 {serviceForm.formState.errors.phone && (
@@ -197,14 +251,16 @@ export function BookingTabsCard({
               </div>
             </div>
 
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="svc-company">{t.serviceForm.company}</Label>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-2.5">
+                <Label htmlFor="svc-company" className="font-display text-sm font-bold text-foreground">
+                  {t.serviceForm.company}
+                </Label>
                 <Input
                   id="svc-company"
                   placeholder={t.serviceForm.companyPlaceholder}
                   aria-invalid={!!serviceForm.formState.errors.company}
-                  className="h-12 rounded-xl border-border/70 bg-card px-4"
+                  className="h-12 rounded-[12px] border-0 bg-card px-4 text-base text-foreground shadow-none placeholder:text-foreground/45 focus-visible:ring-2 focus-visible:ring-primary/50"
                   {...serviceForm.register("company")}
                 />
                 {serviceForm.formState.errors.company && (
@@ -214,15 +270,17 @@ export function BookingTabsCard({
                 )}
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="svc-email">{t.serviceForm.email}</Label>
+              <div className="space-y-2.5">
+                <Label htmlFor="svc-email" className="font-display text-sm font-bold text-foreground">
+                  {t.serviceForm.email}
+                </Label>
                 <Input
                   id="svc-email"
                   type="email"
                   dir="ltr"
                   placeholder={t.serviceForm.emailPlaceholder}
                   aria-invalid={!!serviceForm.formState.errors.email}
-                  className="h-12 rounded-xl border-border/70 bg-card px-4"
+                  className="h-12 rounded-[12px] border-0 bg-card px-4 text-base text-foreground shadow-none placeholder:text-foreground/45 focus-visible:ring-2 focus-visible:ring-primary/50 rtl:text-right"
                   {...serviceForm.register("email")}
                 />
                 {serviceForm.formState.errors.email && (
@@ -233,29 +291,23 @@ export function BookingTabsCard({
               </div>
             </div>
 
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="svc-type">{t.serviceForm.service}</Label>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-2.5">
+                <Label htmlFor="svc-type" className="font-display text-sm font-bold text-foreground">
+                  {t.serviceForm.service}
+                </Label>
                 <Controller
                   control={serviceForm.control}
                   name="service"
                   render={({ field }) => (
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger
-                        id="svc-type"
-                        aria-invalid={!!serviceForm.formState.errors.service}
-                        className="h-12 w-full rounded-xl border-border/70 bg-card px-4"
-                      >
-                        <SelectValue placeholder={t.serviceForm.servicePlaceholder} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {t.serviceForm.services.map((opt) => (
-                          <SelectItem key={opt.value} value={opt.value}>
-                            {opt.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <FormDropdown
+                      id="svc-type"
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      placeholder={t.serviceForm.servicePlaceholder}
+                      options={t.serviceForm.services}
+                      invalid={!!serviceForm.formState.errors.service}
+                    />
                   )}
                 />
                 {serviceForm.formState.errors.service && (
@@ -265,28 +317,22 @@ export function BookingTabsCard({
                 )}
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="svc-budget">{t.serviceForm.budget}</Label>
+              <div className="space-y-2.5">
+                <Label htmlFor="svc-budget" className="font-display text-sm font-bold text-foreground">
+                  {t.serviceForm.budget}
+                </Label>
                 <Controller
                   control={serviceForm.control}
                   name="budget"
                   render={({ field }) => (
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger
-                        id="svc-budget"
-                        aria-invalid={!!serviceForm.formState.errors.budget}
-                        className="h-12 w-full rounded-xl border-border/70 bg-card px-4"
-                      >
-                        <SelectValue placeholder={t.serviceForm.budgetPlaceholder} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {t.serviceForm.budgets.map((opt) => (
-                          <SelectItem key={opt.value} value={opt.value}>
-                            {opt.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <FormDropdown
+                      id="svc-budget"
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      placeholder={t.serviceForm.budgetPlaceholder}
+                      options={t.serviceForm.budgets}
+                      invalid={!!serviceForm.formState.errors.budget}
+                    />
                   )}
                 />
                 {serviceForm.formState.errors.budget && (
@@ -297,14 +343,16 @@ export function BookingTabsCard({
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="svc-details">{t.serviceForm.details}</Label>
+            <div className="space-y-2.5">
+              <Label htmlFor="svc-details" className="font-display text-sm font-bold text-foreground">
+                {t.serviceForm.details}
+              </Label>
               <Textarea
                 id="svc-details"
                 rows={4}
                 placeholder={t.serviceForm.detailsPlaceholder}
                 aria-invalid={!!serviceForm.formState.errors.details}
-                className="min-h-[110px] rounded-xl border-border/70 bg-card p-4"
+                className="min-h-[96px] rounded-[12px] border-0 bg-card px-4 py-3.5 text-base text-foreground shadow-none placeholder:text-foreground/45 focus-visible:ring-2 focus-visible:ring-primary/50"
                 {...serviceForm.register("details")}
               />
               {serviceForm.formState.errors.details && (
@@ -320,7 +368,7 @@ export function BookingTabsCard({
                 variant="gold"
                 size="xl"
                 disabled={serviceForm.formState.isSubmitting}
-                className="w-full sm:max-w-[440px]"
+                className="h-14 w-full rounded-full font-display text-lg font-bold sm:h-[64px] sm:max-w-[609px] sm:text-[20px]"
               >
                 {serviceForm.formState.isSubmitting
                   ? t.serviceForm.submitting
@@ -332,16 +380,18 @@ export function BookingTabsCard({
           <form
             onSubmit={studioForm.handleSubmit(handleStudioSubmit)}
             noValidate
-            className="space-y-5"
+            className="space-y-6"
           >
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="studio-name">{t.studioForm.name}</Label>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-2.5">
+                <Label htmlFor="studio-name" className="font-display text-sm font-bold text-foreground">
+                  {t.studioForm.name}
+                </Label>
                 <Input
                   id="studio-name"
                   placeholder={t.studioForm.namePlaceholder}
                   aria-invalid={!!studioForm.formState.errors.name}
-                  className="h-12 rounded-xl border-border/70 bg-card px-4"
+                  className="h-12 rounded-[12px] border-0 bg-card px-4 text-base text-foreground shadow-none placeholder:text-foreground/45 focus-visible:ring-2 focus-visible:ring-primary/50"
                   {...studioForm.register("name")}
                 />
                 {studioForm.formState.errors.name && (
@@ -351,15 +401,17 @@ export function BookingTabsCard({
                 )}
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="studio-phone">{t.studioForm.phone}</Label>
+              <div className="space-y-2.5">
+                <Label htmlFor="studio-phone" className="font-display text-sm font-bold text-foreground">
+                  {t.studioForm.phone}
+                </Label>
                 <Input
                   id="studio-phone"
                   type="tel"
                   dir="ltr"
                   placeholder={t.studioForm.phonePlaceholder}
                   aria-invalid={!!studioForm.formState.errors.phone}
-                  className="h-12 rounded-xl border-border/70 bg-card px-4"
+                  className="h-12 rounded-[12px] border-0 bg-card px-4 text-base text-foreground shadow-none placeholder:text-foreground/45 focus-visible:ring-2 focus-visible:ring-primary/50 rtl:text-right"
                   {...studioForm.register("phone")}
                 />
                 {studioForm.formState.errors.phone && (
@@ -370,28 +422,22 @@ export function BookingTabsCard({
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="studio-shoot-type">{t.studioForm.shootType}</Label>
+            <div className="space-y-2.5">
+              <Label htmlFor="studio-shoot-type" className="font-display text-sm font-bold text-foreground">
+                {t.studioForm.shootType}
+              </Label>
               <Controller
                 control={studioForm.control}
                 name="shootType"
                 render={({ field }) => (
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger
-                      id="studio-shoot-type"
-                      aria-invalid={!!studioForm.formState.errors.shootType}
-                      className="h-12 w-full rounded-xl border-border/70 bg-card px-4"
-                    >
-                      <SelectValue placeholder={t.studioForm.shootTypePlaceholder} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {t.studioForm.shootTypes.map((opt) => (
-                        <SelectItem key={opt.value} value={opt.value}>
-                          {opt.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <FormDropdown
+                    id="studio-shoot-type"
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    placeholder={t.studioForm.shootTypePlaceholder}
+                    options={t.studioForm.shootTypes}
+                    invalid={!!studioForm.formState.errors.shootType}
+                  />
                 )}
               />
               {studioForm.formState.errors.shootType && (
@@ -401,14 +447,16 @@ export function BookingTabsCard({
               )}
             </div>
 
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="studio-time">{t.studioForm.time}</Label>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-2.5">
+                <Label htmlFor="studio-time" className="font-display text-sm font-bold text-foreground">
+                  {t.studioForm.time}
+                </Label>
                 <Input
                   id="studio-time"
                   type="time"
                   aria-invalid={!!studioForm.formState.errors.time}
-                  className="h-12 rounded-xl border-border/70 bg-card px-4"
+                  className="h-[52px] rounded-[12px] border-0 bg-card px-4 text-base text-foreground shadow-none focus-visible:ring-2 focus-visible:ring-primary/50"
                   {...studioForm.register("time")}
                 />
                 {studioForm.formState.errors.time && (
@@ -418,13 +466,15 @@ export function BookingTabsCard({
                 )}
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="studio-date">{t.studioForm.date}</Label>
+              <div className="space-y-2.5">
+                <Label htmlFor="studio-date" className="font-display text-sm font-bold text-foreground">
+                  {t.studioForm.date}
+                </Label>
                 <Input
                   id="studio-date"
                   type="date"
                   aria-invalid={!!studioForm.formState.errors.date}
-                  className="h-12 rounded-xl border-border/70 bg-card px-4"
+                  className="h-[52px] rounded-[12px] border-0 bg-card px-4 text-base text-foreground shadow-none focus-visible:ring-2 focus-visible:ring-primary/50"
                   {...studioForm.register("date")}
                 />
                 {studioForm.formState.errors.date && (
@@ -441,7 +491,7 @@ export function BookingTabsCard({
                 variant="gold"
                 size="xl"
                 disabled={studioForm.formState.isSubmitting}
-                className="w-full sm:max-w-[440px]"
+                className="h-14 w-full rounded-full font-display text-lg font-bold sm:h-[64px] sm:max-w-[609px] sm:text-[20px]"
               >
                 {studioForm.formState.isSubmitting
                   ? t.studioForm.submitting
@@ -450,7 +500,9 @@ export function BookingTabsCard({
             </div>
           </form>
         )}
-      </div>
+          </motion.div>
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 }

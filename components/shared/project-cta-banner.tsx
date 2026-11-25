@@ -1,10 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Container } from "@/components/layout/container";
-import { DotsBadge } from "@/components/shared/dots-badge";
+import { CtaLinkButton } from "@/components/shared/cta-link-button";
 import { FloatAmbient, Reveal } from "@/components/motion/motion-primitives";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import type { Locale } from "@/types";
 import type { Messages } from "@/messages/ar";
 
@@ -30,16 +27,11 @@ export function ProjectCtaBanner({ t }: ProjectCtaBannerProps) {
                   {t.subtitle}
                 </p>
                 <div className="pt-2">
-                  <Link
+                  <CtaLinkButton
                     href="/booking"
-                    className={cn(
-                      buttonVariants({ variant: "gold", size: "pill" }),
-                      "group h-[54px] ps-6 pe-[7px]"
-                    )}
-                  >
-                    <span>{t.button}</span>
-                    <DotsBadge variant="light" />
-                  </Link>
+                    label={t.button}
+                    variant="gold"
+                  />
                 </div>
               </div>
 

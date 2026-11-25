@@ -23,11 +23,11 @@ export function Footer({ locale, t, siteName }: FooterProps) {
 
   return (
     <footer className="mt-16 w-full px-2 pb-4 sm:px-4 md:mt-24">
-      <div className="relative mx-auto max-w-[1440px] overflow-hidden rounded-[30px] border border-border/70 bg-footer-bg text-foreground">
+      <div className="relative mx-auto max-w-360 overflow-hidden rounded-[30px] border border-border/70 bg-footer-bg text-foreground">
         {/* Soft golden radial ambient glow (matches Figma Ellipse 579) */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-24 start-0 h-[420px] w-[420px] rounded-full bg-primary/15 blur-[110px] dark:bg-primary/10"
+          className="pointer-events-none absolute -top-24 inset-s-0 h-105 w-105 rounded-full bg-primary/15 blur-[110px] dark:bg-primary/10"
         />
 
         {/* Top CTA Banner */}
@@ -38,11 +38,11 @@ export function Footer({ locale, t, siteName }: FooterProps) {
                 <Link
                   href="/contact"
                   aria-label={t.ctaHighlight}
-                  className="group flex size-20 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform duration-300 hover:scale-105 dark:bg-white/10 dark:text-white dark:hover:bg-primary dark:hover:text-primary-foreground sm:size-24 md:size-[108px]"
+                  className="group flex size-20 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground  dark:bg-white/10 dark:text-white dark:hover:bg-primary dark:hover:text-primary-foreground sm:size-24 md:size-27"
                 >
-                  <ArrowIcon className="size-8 transition-transform duration-300 group-hover:scale-110 sm:size-10" />
+                  <ArrowIcon className="size-8 transition-transform duration-300 group-hover:scale-110 sm:size-10 rtl:rotate-90" />
                 </Link>
-                <h2 className="font-display text-3xl font-bold leading-snug text-foreground sm:text-4xl lg:text-[50px] lg:leading-[1.25]">
+                <h2 className="font-display text-3xl font-bold leading-snug text-foreground sm:text-4xl lg:text-[50px] lg:leading-tight">
                   {t.ctaPrefix}{" "}
                   <span className="text-brand-dark">{t.ctaHighlight}</span>{" "}
                   {t.ctaSuffix}
