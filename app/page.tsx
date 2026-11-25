@@ -34,7 +34,7 @@ export default async function HomePage() {
   return (
     <>
       {/* 1. HERO SECTION (Preserves exact 1440:662 aspect ratio & crisp 90% image clarity) */}
-      <section className="relative isolate -mt-26 flex min-h-135 items-center overflow-hidden pt-32.5 pb-14 sm:min-h-150 lg:aspect-1440/662 lg:min-h-160 lg:pt-37.5 lg:pb-16">
+      <section className="relative isolate -mt-26 flex min-h-135 items-center overflow-hidden pt-3 pb-14 sm:min-h-150 lg:aspect-1440/662  lg:min-h-160 lg:pt-3 lg:pb-16">
         {/* Light Hero Background — vivid 90% clear image with minimal Figma edge fade */}
         <div className="pointer-events-none absolute inset-0 -z-10 dark:hidden">
           <Image
@@ -43,7 +43,7 @@ export default async function HomePage() {
             fill
             priority
             sizes="100vw"
-            className="object-cover object-left ltr:scale-x-[-1] ltr:object-right"
+            className="object-cover object-right  ltr:scale-x-[-1] ltr:object-right"
           />
           <div
             className="absolute inset-0"
