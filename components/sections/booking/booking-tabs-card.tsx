@@ -16,6 +16,7 @@ import {
   type ServiceBookingValues,
   type StudioBookingValues,
 } from "@/schemas/booking.schema";
+import { submitServiceBooking, submitStudioBooking } from "@/lib/graphql";
 import { cn } from "@/lib/utils";
 import type { Messages } from "@/messages/ar";
 
@@ -32,6 +33,7 @@ export function BookingTabsCard({
 }: BookingTabsCardProps) {
   const [activeTab, setActiveTab] = React.useState<"service" | "studio">(initialTab);
   const [submittedTab, setSubmittedTab] = React.useState<"service" | "studio" | null>(null);
+  const [submitError, setSubmitError] = React.useState<string | null>(null);
 
   const serviceSchema = React.useMemo(
     () => createServiceBookingSchema(validation),
@@ -66,16 +68,30 @@ export function BookingTabsCard({
     },
   });
 
-  const handleServiceSubmit = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    setSubmittedTab("service");
-    serviceForm.reset();
+  const handleServiceSubmit = async (values: ServiceBookingValues) => {
+    setSubmitError(null);
+    try {
+      await submitServiceBooking(values);
+      setSubmittedTab("service");
+      serviceForm.reset();
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error ? err.message : "Failed to submit booking. Please try again."
+      );
+    }
   };
 
-  const handleStudioSubmit = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    setSubmittedTab("studio");
-    studioForm.reset();
+  const handleStudioSubmit = async (values: StudioBookingValues) => {
+    setSubmitError(null);
+    try {
+      await submitStudioBooking(values);
+      setSubmittedTab("studio");
+      studioForm.reset();
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error ? err.message : "Failed to submit studio booking. Please try again."
+      );
+    }
   };
 
   return (
@@ -362,6 +378,12 @@ export function BookingTabsCard({
               )}
             </div>
 
+            {submitError && (
+              <p className="rounded-xl bg-destructive/10 px-4 py-2.5 text-center text-xs font-medium text-destructive">
+                {submitError}
+              </p>
+            )}
+
             <div className="pt-2 text-center">
               <Button
                 type="submit"
@@ -484,6 +506,12 @@ export function BookingTabsCard({
                 )}
               </div>
             </div>
+
+            {submitError && (
+              <p className="rounded-xl bg-destructive/10 px-4 py-2.5 text-center text-xs font-medium text-destructive">
+                {submitError}
+              </p>
+            )}
 
             <div className="pt-2 text-center">
               <Button

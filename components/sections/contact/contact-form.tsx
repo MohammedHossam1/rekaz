@@ -13,6 +13,7 @@ import {
   createContactSchema,
   type ContactFormValues,
 } from "@/schemas/contact.schema";
+import { submitContactMessage } from "@/lib/graphql";
 import type { Messages } from "@/messages/ar";
 
 interface ContactFormProps {
@@ -22,6 +23,7 @@ interface ContactFormProps {
 
 export function ContactForm({ t, validation }: ContactFormProps) {
   const [submitted, setSubmitted] = React.useState(false);
+  const [submitError, setSubmitError] = React.useState<string | null>(null);
 
   const schema = React.useMemo(
     () => createContactSchema(validation),
@@ -44,10 +46,17 @@ export function ContactForm({ t, validation }: ContactFormProps) {
     },
   });
 
-  const onSubmit = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    setSubmitted(true);
-    reset();
+  const onSubmit = async (values: ContactFormValues) => {
+    setSubmitError(null);
+    try {
+      await submitContactMessage(values);
+      setSubmitted(true);
+      reset();
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error ? err.message : "Failed to submit message. Please try again."
+      );
+    }
   };
 
   if (submitted) {
@@ -158,6 +167,12 @@ export function ContactForm({ t, validation }: ContactFormProps) {
           <p className="text-xs font-medium text-destructive">{errors.message.message}</p>
         )}
       </div>
+
+      {submitError && (
+        <p className="rounded-xl bg-destructive/10 px-4 py-2.5 text-center text-xs font-medium text-destructive">
+          {submitError}
+        </p>
+      )}
 
       <div className="pt-1 text-center sm:pt-2">
         <Button
